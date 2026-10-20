@@ -1,0 +1,4 @@
+Contact: mailto:engenharia@nesiak.com.br
+Expires: 2027-10-20T00:00:00.000Z
+Preferred-Languages: pt, en
+Canonical: https://nesiak.com.br/.well-known/security.txt
