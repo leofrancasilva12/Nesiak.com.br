@@ -6,7 +6,9 @@ Site institucional da **NESIAK** (Engenharia • Inspeção • Serviço), publi
 
 | Arquivo | Função |
 |---|---|
-| `index.html` | Página única do site (HTML + CSS) |
+| `index.html` | Página única do site em português (HTML + CSS) |
+| `en/index.html` | Versão em inglês |
+| `es/index.html` | Versão em espanhol |
 | `assets/js/main.js` | Menu, animações de rolagem, abas de inspeção, formulário e WhatsApp |
 | `assets/img/` | Favicon, ícones do app e imagem de compartilhamento (og-image) |
 | `404.html` | Página de erro personalizada |
@@ -14,6 +16,11 @@ Site institucional da **NESIAK** (Engenharia • Inspeção • Serviço), publi
 | `CNAME` | Domínio próprio `nesiak.com.br` |
 | `.well-known/security.txt` | Contato para relatos de segurança |
 | `.nojekyll` | Publica os arquivos como estão (inclui a pasta `.well-known`) |
+
+## Idiomas
+
+O site tem três versões: português (`/`), inglês (`/en/`) e espanhol (`/es/`), com seletor de idioma no header.
+Ao alterar um texto em português, altere também o mesmo trecho em `en/index.html` e `es/index.html`.
 
 ## Ativar o WhatsApp
 

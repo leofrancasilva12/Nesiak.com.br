@@ -21,6 +21,10 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://nesiak.com.br/">
+<link rel="alternate" hreflang="pt" href="https://nesiak.com.br/">
+<link rel="alternate" hreflang="en" href="https://nesiak.com.br/en/">
+<link rel="alternate" hreflang="es" href="https://nesiak.com.br/es/">
+<link rel="alternate" hreflang="x-default" href="https://nesiak.com.br/">
 <link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
 <link rel="icon" href="/assets/img/favicon-32.png" sizes="32x32" type="image/png">
 <link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
@@ -301,6 +305,22 @@ footer{background:var(--g900);color:#B9CFBB;padding:56px 0 30px;font-size:.92rem
   *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
   .reveal{opacity:1;transform:none}
 }
+
+.lang{position:relative}
+.lang-btn{display:flex;align-items:center;gap:7px;background:#fff;border:1.5px solid var(--line);border-radius:999px;padding:.5rem .8rem;font:600 .85rem Poppins,sans-serif;color:var(--g800);cursor:pointer;transition:border-color .2s}
+.lang-btn:hover,.lang-btn[aria-expanded="true"]{border-color:var(--g700)}
+.lang-btn svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.7}
+.lang-btn .chev{width:12px;height:12px;stroke-width:2.2;transition:transform .25s}
+.lang-btn[aria-expanded="true"] .chev{transform:rotate(180deg)}
+.lang-menu{position:absolute;right:0;top:calc(100% + 10px);background:#fff;border:1px solid var(--line);border-radius:14px;box-shadow:0 16px 40px rgba(13,56,18,.14);padding:6px;min-width:190px;list-style:none;z-index:60;animation:panelIn .25s var(--ease)}
+.lang-menu a{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:.7rem .85rem;border-radius:9px;font-size:.93rem;color:var(--ink)}
+.lang-menu a::after{display:none}
+.lang-menu a small{font:600 .72rem Poppins,sans-serif;color:var(--muted);letter-spacing:.08em}
+.lang-menu a:hover{background:var(--g50)}
+.lang-menu a[aria-current]{background:var(--g100);color:var(--g900);font-weight:600}
+.lang-menu a[aria-current] small{color:var(--g700)}
+.lang-m{display:none}
+@media (max-width:860px){.menu .lang{display:none}.lang-m{display:block;margin-left:auto}.lang-m .lang-btn{padding:.45rem .7rem}.nav{gap:10px}}
 </style>
 </head>
 <body>
@@ -475,6 +495,7 @@ footer{background:var(--g900);color:#B9CFBB;padding:56px 0 30px;font-size:.92rem
       <svg class="b-icon" viewBox="200 118 670 645" fill="currentColor"><use href="#p-icon"/></svg>
       <svg class="b-word" viewBox="200 815 667 108" fill="currentColor"><use href="#p-word"/></svg>
     </a>
+    <div class="lang lang-m"><button class="lang-btn" type="button" aria-haspopup="true" aria-expanded="false" aria-label="Idioma"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.6 2.6 3.8 5.6 3.8 9s-1.2 6.4-3.8 9c-2.6-2.6-3.8-5.6-3.8-9S9.4 5.6 12 3z"/></svg>PT<svg class="chev" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></button><ul class="lang-menu" hidden><li><a href="/" hreflang="pt" lang="pt" aria-current="true">Português <small>PT</small></a></li><li><a href="/en/" hreflang="en" lang="en">English <small>EN</small></a></li><li><a href="/es/" hreflang="es" lang="es">Español <small>ES</small></a></li></ul></div>
     <button class="burger" aria-label="Abrir menu" aria-expanded="false"><span></span><span></span><span></span></button>
     <ul class="menu">
       <li><a href="#sobre">Sobre</a></li>
@@ -482,6 +503,7 @@ footer{background:var(--g900);color:#B9CFBB;padding:56px 0 30px;font-size:.92rem
       <li><a href="#inspecao">Inspeção</a></li>
       <li><a href="#processo">Como trabalhamos</a></li>
       <li><a href="#valores">Valores</a></li>
+      <li><div class="lang lang-d"><button class="lang-btn" type="button" aria-haspopup="true" aria-expanded="false" aria-label="Idioma"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.6 2.6 3.8 5.6 3.8 9s-1.2 6.4-3.8 9c-2.6-2.6-3.8-5.6-3.8-9S9.4 5.6 12 3z"/></svg>PT<svg class="chev" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></button><ul class="lang-menu" hidden><li><a href="/" hreflang="pt" lang="pt" aria-current="true">Português <small>PT</small></a></li><li><a href="/en/" hreflang="en" lang="en">English <small>EN</small></a></li><li><a href="/es/" hreflang="es" lang="es">Español <small>ES</small></a></li></ul></div></li>
       <li><a href="#contato" class="btn btn-primary">Solicitar orçamento</a></li>
     </ul>
   </div>

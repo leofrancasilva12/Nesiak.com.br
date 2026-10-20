@@ -3,6 +3,16 @@
 const WHATSAPP = "";
 const EMAIL = "engenharia@nesiak.com.br";
 
+const LANG = (document.documentElement.lang || "pt").slice(0, 2);
+const I18N = {
+  pt: { wa: "Olá, NESIAK! Vim pelo site e gostaria de um orçamento.", subject: "Orçamento pelo site - ",
+        labels: ["Nome", "Empresa", "E-mail", "Telefone", "Assunto"] },
+  en: { wa: "Hello, NESIAK! I found you through your website and would like a quote.", subject: "Quote request from website - ",
+        labels: ["Name", "Company", "Email", "Phone", "Subject"] },
+  es: { wa: "¡Hola, NESIAK! Llegué por el sitio web y me gustaría un presupuesto.", subject: "Presupuesto desde el sitio - ",
+        labels: ["Nombre", "Empresa", "Correo", "Teléfono", "Asunto"] }
+}[LANG] || null;
+
 document.getElementById('y').textContent = new Date().getFullYear();
 const header = document.querySelector('header');
 const onScroll = () => header.classList.toggle('scrolled', scrollY > 30);
@@ -40,7 +50,7 @@ tabs.forEach(t => t.addEventListener('click', () => {
 
 // WhatsApp (só aparece com número configurado)
 if (WHATSAPP) {
-  const url = 'https://wa.me/' + WHATSAPP + '?text=' + encodeURIComponent('Olá, NESIAK! Vim pelo site e gostaria de um orçamento.');
+  const url = 'https://wa.me/' + WHATSAPP + '?text=' + encodeURIComponent(I18N.wa);
   document.querySelectorAll('.wa-float, .wa-link').forEach(a => { a.href = url; a.target = '_blank'; a.rel = 'noopener'; a.hidden = false; });
   document.querySelector('.wa-float').style.display = 'grid';
   document.querySelector('.wa-num').textContent = '+' + WHATSAPP.replace(/^(\d{2})(\d{2})(\d{4,5})(\d{4})$/, '$1 ($2) $3-$4');
@@ -52,6 +62,26 @@ document.getElementById('form').addEventListener('submit', e => {
   const f = e.target;
   if (!f.reportValidity()) return;
   const d = Object.fromEntries(new FormData(f));
-  const body = `Nome: ${d.nome}\nEmpresa: ${d.empresa || '-'}\nE-mail: ${d.email}\nTelefone: ${d.telefone || '-'}\nAssunto: ${d.assunto}\n\n${d.mensagem}`;
-  location.href = `mailto:${EMAIL}?subject=${encodeURIComponent('Orçamento pelo site - ' + d.assunto)}&body=${encodeURIComponent(body)}`;
+  const [lN, lE, lM, lT, lA] = I18N.labels;
+  const body = `${lN}: ${d.nome}\n${lE}: ${d.empresa || '-'}\n${lM}: ${d.email}\n${lT}: ${d.telefone || '-'}\n${lA}: ${d.assunto}\n\n${d.mensagem}`;
+  location.href = `mailto:${EMAIL}?subject=${encodeURIComponent(I18N.subject + d.assunto)}&body=${encodeURIComponent(body)}`;
 });
+
+// seletor de idioma
+const langs = [...document.querySelectorAll('.lang')];
+const closeLangs = except => langs.forEach(l => { if (l !== except) { l.querySelector('.lang-menu').hidden = true; l.querySelector('.lang-btn').setAttribute('aria-expanded', 'false'); } });
+langs.forEach(l => {
+  const btn = l.querySelector('.lang-btn'), menu = l.querySelector('.lang-menu');
+  btn.addEventListener('click', e => {
+    e.stopPropagation();
+    const open = menu.hidden;
+    closeLangs(l);
+    menu.hidden = !open; btn.setAttribute('aria-expanded', String(open));
+  });
+  // mantém a seção atual ao trocar de idioma
+  menu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+    if (location.hash) a.href = a.getAttribute('href') + location.hash;
+  }));
+});
+document.addEventListener('click', e => { if (!e.target.closest('.lang')) closeLangs(); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLangs(); });
