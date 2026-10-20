@@ -85,3 +85,32 @@ langs.forEach(l => {
 });
 document.addEventListener('click', e => { if (!e.target.closest('.lang')) closeLangs(); });
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLangs(); });
+
+// profundidade com o mouse no topo (só computador)
+const deskMQ = matchMedia('(min-width:1021px) and (hover:hover) and (prefers-reduced-motion:no-preference)');
+const heroEl = document.querySelector('.hero'), artEl = document.querySelector('.hero-art'), gridEl = heroEl && heroEl.querySelector('.grid-bg');
+if (heroEl && artEl && gridEl) {
+  let tx = 0, ty = 0, cx = 0, cy = 0, raf = 0;
+  const step = () => {
+    raf = 0;
+    cx += (tx - cx) * .08; cy += (ty - cy) * .08;
+    artEl.style.setProperty('--sx', (cx * 6).toFixed(1) + 'px');
+    artEl.style.setProperty('--sy', (cy * 5).toFixed(1) + 'px');
+    artEl.style.setProperty('--lx', (50 + cx * 28).toFixed(1) + '%');
+    artEl.style.setProperty('--ly', (40 + cy * 28).toFixed(1) + '%');
+    artEl.style.setProperty('--px', (cx * 16).toFixed(1) + 'px');
+    artEl.style.setProperty('--py', (cy * 12).toFixed(1) + 'px');
+    gridEl.style.setProperty('--gx', (-cx * 14).toFixed(1) + 'px');
+    gridEl.style.setProperty('--gy', (-cy * 10).toFixed(1) + 'px');
+    if (Math.abs(tx - cx) > .002 || Math.abs(ty - cy) > .002) raf = requestAnimationFrame(step);
+  };
+  const kick = () => { if (!raf) raf = requestAnimationFrame(step); };
+  heroEl.addEventListener('pointermove', e => {
+    if (!deskMQ.matches || e.pointerType !== 'mouse') return;
+    const r = heroEl.getBoundingClientRect();
+    tx = ((e.clientX - r.left) / r.width - .5) * 2;
+    ty = ((e.clientY - r.top) / r.height - .5) * 2;
+    artEl.style.setProperty('--lo', '1'); kick();
+  });
+  heroEl.addEventListener('pointerleave', () => { tx = 0; ty = 0; artEl.style.setProperty('--lo', '0'); kick(); });
+}
