@@ -22,6 +22,10 @@ Site institucional da **NESIAK** (Engenharia • Inspeção • Serviço), publi
 O site tem três versões: português (`/`), inglês (`/en/`) e espanhol (`/es/`), com seletor de idioma no header.
 Ao alterar um texto em português, altere também o mesmo trecho em `en/index.html` e `es/index.html`.
 
+## Cache
+
+Ao alterar `assets/js/main.js`, aumente o número em `main.js?v=2` nas três páginas (`index.html`, `en/`, `es/`) para os navegadores baixarem a versão nova na hora.
+
 ## Ativar o WhatsApp
 
 Em `assets/js/main.js`, preencha o número com DDI e DDD, só dígitos:
